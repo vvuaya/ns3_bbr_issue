@@ -581,8 +581,6 @@ TcpBbr::SetCwnd (Ptr<TcpSocketState> tcb, const TcpRateOps::TcpRateSample &rs)
       tcb->m_cWnd = tcb->m_cWnd.Get () + rs.m_ackedSacked;
     }
   tcb->m_cWnd = std::max (tcb->m_cWnd.Get (), m_minPipeCwnd);
-  //lyj add at 9/30 for 0mbps bug
-  tcb->m_cWnd = std::min(tcb->m_cWnd.Get (), 1000 * tcb->m_segmentSize);
   
 done:
   ModulateCwndForProbeRTT (tcb);
